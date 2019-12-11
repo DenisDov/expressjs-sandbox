@@ -1,0 +1,14 @@
+extends layouts/_layout
+block content
+
+	section
+		.container
+			h1= message
+			
+			h2 Users:
+
+			- var n = 0;
+			ul
+				while n < 4
+					li= n++
+
