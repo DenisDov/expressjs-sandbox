@@ -1,5 +1,5 @@
 const express = require("express");
-// const path = require("path");
+const path = require("path");
 
 const logger = require("./utils/logger");
 
@@ -23,10 +23,16 @@ app.get("/about", (req, res) => {
 });
 
 // Set static folder
-// app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public")));
 
 // Users API router
 app.use("/api/users", require("./routes/api/users"));
+
+// Handle 404 page
+app.use((req, res, next) => {
+  res.status(404);
+  res.render("404", { title: "404" });
+});
 
 // Create dynamic port based on server
 const PORT = process.env.PORT || 5000;
