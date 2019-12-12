@@ -1,0 +1,23 @@
+extends layouts/_layout
+block content
+
+	section
+		.container.mt-4
+			h1 USERS FROM MYSQL:
+			
+			table.table.table-hover
+				thead.thead-dark
+					tr
+						th(scope='col') #
+						th(scope='col') Name
+						th(scope='col') Email
+						th(scope='col') Location
+				tbody
+					
+					each person in result
+						tr
+							th(scope="row")= person.id
+							td
+								a(href='/user/'+person.id) #{person.first_name}
+							td= person.email
+							td= person.location
