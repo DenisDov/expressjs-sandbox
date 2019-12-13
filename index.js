@@ -1,8 +1,12 @@
+if (process.env.NODE_ENV !== "production") {
+  require("console-stamp")(console, "mm-dd HH:MM");
+}
+
 const express = require("express");
 const path = require("path");
 const mysql = require("mysql");
 
-const logger = require("./utils/logger");
+// const logger = require("./utils/logger");
 
 const app = express();
 // app.use(logger); // Middleware
@@ -18,14 +22,25 @@ app.set("view engine", "pug");
 
 /* GET home page. */
 app.get("/", (req, res) => {
-  res.render("index", { title: "Homepage", message: "Homepage" });
+  const userLocale = req.acceptsLanguages()[0];
+  res.render("index", { title: "Homepage", message: "Homepage", userLocale });
 });
 /* GET about page. */
 app.get("/about", (req, res) => {
   res.render("about", { title: "About", message: "About page" });
 });
 
+app.get("/info", (req, res) => {
+  const myURL = new URL("http://example.com/hello.html?id=8f35490242&status=active");
+  const refID = myURL.searchParams.get("id");
+  const data = {
+    refID
+  };
+  res.render("info", { title: "Info", data });
+});
+
 // Set static folder for css,js,imgs
+app.use(require("less-middleware")(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "public")));
 
 // Users API router

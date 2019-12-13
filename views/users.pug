@@ -3,7 +3,7 @@ block content
 
 	section
 		.container.mt-4
-			h1 USERS FROM MYSQL:
+			h1 USERS FROM MYSQL: 
 			
 			table.table.table-hover
 				thead.thead-dark
@@ -18,6 +18,6 @@ block content
 						tr
 							th(scope="row")= person.id
 							td
-								a(href='/user/'+person.id) #{person.first_name}
+								a(href='/user/'+person.id)= person.first_name
 							td= person.email
 							td= person.location
