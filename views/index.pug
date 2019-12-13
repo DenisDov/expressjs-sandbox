@@ -1,18 +1,25 @@
 extends layouts/_layout
 block content
 
+	section.my-5
+		.container
+			.row
+				.col-6
+						h1= message
+						h1 Header 1
+						h2 Header 2
+						h3 Header 3
+						h4 Header 4
+						h5 Header 5
+						h6 Header 6
+						
+				.col-6
+					span Ionicons: 
+						ion-icon(name='alarm' size="large")
+						ion-icon(name='barcode' size="large")
+					p User preferred locale: #{userLocale}
 	section
 		.container
-			h1= message
-			h1 Header 1
-			h2 Header 2
-			h3 Header 3
-			h4 Header 4
-			h5 Header 5
-			h6 Header 6
-			span Ionicons: 
-				ion-icon(name='alarm' size="large")
-				ion-icon(name='barcode' size="large")
 			.row
 				- for (var x = 0; x < 4; x++)
 					.col-md-3
@@ -21,7 +28,7 @@ block content
 
 			img(src="img/javascript.svg", alt="")
 			hr
-			p User preferred locale: #{userLocale}
+			
 
 			
 

@@ -1,5 +1,7 @@
-if (process.env.NODE_ENV !== "production") {
-  require("console-stamp")(console, "mm-dd HH:MM");
+if (process.env.NODE_ENV === "production") console.log("Server started in production mode");
+else {
+  require("console-stamp")(console, "mm-dd HH:MM:ss");
+  console.log("Server started in dev mode");
 }
 
 const express = require("express");
@@ -20,34 +22,37 @@ app.set("view engine", "pug");
 
 // if (contentType == "text/html" && extname == "") filePath += ".html";
 
-/* GET home page. */
-app.get("/", (req, res) => {
-  const userLocale = req.acceptsLanguages()[0];
-  res.render("index", { title: "Homepage", message: "Homepage", userLocale });
-});
-/* GET about page. */
-app.get("/about", (req, res) => {
-  res.render("about", { title: "About", message: "About page" });
-});
+// /* GET home page. */
+// app.get("/", (req, res) => {
+//   const userLocale = req.acceptsLanguages()[0];
+//   res.render("index", { title: "Homepage", message: "Homepage", userLocale });
+// });
+// /* GET about page. */
+// app.get("/about", (req, res) => {
+//   res.render("about", { title: "About", message: "About page" });
+// });
 
-app.get("/info", (req, res) => {
-  const myURL = new URL("http://example.com/hello.html?id=8f35490242&status=active");
-  const refID = myURL.searchParams.get("id");
-  const data = {
-    refID
-  };
-  res.render("info", { title: "Info", data });
-});
+// app.get("/info", (req, res) => {
+//   const myURL = new URL("http://example.com/hello.html?id=8f35490242&status=active");
+//   const refID = myURL.searchParams.get("id");
+//   const data = {
+//     refID
+//   };
+//   res.render("info", { title: "Info", data });
+// });
 
-// Set static folder for css,js,imgs
+// Set static folder for css,js,imgs & compile less
 app.use(require("less-middleware")(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "public")));
 
-// Users API router
+// Routes
+app.use("/", require("./routes/index"));
 app.use("/api/users", require("./routes/api/users"));
 
 // Create dynamic port based on server
-const PORT = process.env.PORT || 5000;
+const PORT = require("./config/options.json5").port;
+console.log("PORT: ", PORT);
+// const PORT = process.env.PORT || 5000;
 
 // Connect to MySQL
 const db = mysql.createConnection({
@@ -74,4 +79,4 @@ app.use((req, res, next) => {
   res.render("404", { title: "404" });
 });
 
-app.listen(PORT, () => console.log("Server running..."));
+app.listen(PORT);

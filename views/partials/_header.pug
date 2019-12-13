@@ -1,4 +1,21 @@
 //BEGIN header
-footer.footer(style="background: #343a40; color: white")
-	span HEADER
+header.header
+	nav.navbar.navbar-dark.bg-dark.navbar-expand-md
+		button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
+			span.navbar-toggler-icon
+		#navbarNav.collapse.navbar-collapse
+			ul.navbar-nav
+				li.nav-item
+					a.nav-link(href='/')
+						| Home 
+						span.sr-only (current)
+				li.nav-item
+					a.nav-link(href='/users') Users
+				li.nav-item
+					a.nav-link(href='/about') About
+				li.nav-item
+					a.nav-link(href='/info') Info
+				li.nav-item
+					a.nav-link(href='/404') 404
+
 //END header
